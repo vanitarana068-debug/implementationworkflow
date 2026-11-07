@@ -7,6 +7,7 @@ import { Calculator } from "@/components/site/Calculator";
 import { FinalCTA, Footer } from "@/components/site/Footer";
 import { Stats } from "@/components/site/Stats";
 import { Dashboard } from "@/components/site/Dashboard";
+import { MobileCTA } from "@/components/site/MobileCTA";
 import { usePagePolish } from "@/components/site/useEffects";
 
 export const Route = createFileRoute("/")({
@@ -42,6 +43,7 @@ function Index() {
         <FinalCTA />
       </main>
       <Footer />
+      <MobileCTA />
     </div>
   );
 }

@@ -117,6 +117,7 @@ export function Hero() {
   const frame = useRef<HTMLDivElement>(null);
   // Feed the cursor position to the grid so lines light up around it.
   const track = (e: PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== "mouse") return;
     const el = frame.current;
     if (!el) return;
     const r = el.getBoundingClientRect();

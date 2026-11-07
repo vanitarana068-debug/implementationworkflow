@@ -80,7 +80,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     // twitter:image here: every page without its own would inherit the root's preview image.
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { name: "theme-color", content: "#030619" },
+      { name: "color-scheme", content: "dark" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+      { name: "apple-mobile-web-app-title", content: "Aurevix" },
+      { name: "format-detection", content: "telephone=no" },
       { title: "Aurevix — Intelligence Beyond Operations" },
       { name: "description", content: "We engineer intelligent systems that automate operations, accelerate growth and transform the way businesses work." },
       { property: "og:type", content: "website" },

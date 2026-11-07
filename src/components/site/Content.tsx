@@ -9,6 +9,15 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { AUDIT_URL } from "@/lib/site";
 import { Section } from "./Section";
 
+// Shown only on phones under the swipeable card rails.
+function SwipeHint() {
+  return (
+    <div className="label-mono mt-4 flex items-center justify-center gap-2 text-foreground/40 md:hidden" aria-hidden>
+      <span className="h-px w-6 bg-white/20" /> Swipe to see more <span className="h-px w-6 bg-white/20" />
+    </div>
+  );
+}
+
 const problems = [
   { i: PhoneMissed, t: "Missed customer enquiries", d: "Calls and messages after hours go unanswered — and to competitors." },
   { i: Keyboard, t: "Manual data entry", d: "Hours copying details between forms, sheets and CRMs." },
@@ -21,7 +30,7 @@ const problems = [
 export function Problems() {
   return (
     <Section eyebrow="The problem" title="Hours lost to work AI can *handle.*" alt>
-      <div data-reveal-stagger className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div data-reveal-stagger className="mobile-rail grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {problems.map(({ i: I, t, d }, n) => (
           <div key={t} className="glass card-hover group rounded-2xl p-6">
             <div className="flex items-center justify-between">
@@ -34,6 +43,7 @@ export function Problems() {
           </div>
         ))}
       </div>
+      <SwipeHint />
     </Section>
   );
 }
@@ -51,7 +61,7 @@ export function Solutions() {
   const [open, setOpen] = useState<(typeof solutions)[number] | null>(null);
   return (
     <Section id="solutions" eyebrow="Solutions" title="One system. Every part of your *business.*">
-      <div data-reveal-stagger className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div data-reveal-stagger className="mobile-rail grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {solutions.map((s) => (
           <button key={s.t} onClick={() => setOpen(s)} className="glass card-hover group rounded-2xl p-7 text-left">
             <div className="icon-box"><s.i className="h-[18px] w-[18px]" /></div>
@@ -63,6 +73,7 @@ export function Solutions() {
           </button>
         ))}
       </div>
+      <SwipeHint />
       <Dialog open={!!open} onOpenChange={(o) => !o && setOpen(null)}>
         <DialogContent className="border-border bg-card">
           {open && (
@@ -93,16 +104,19 @@ const steps = [
 export function Process() {
   return (
     <Section eyebrow="How it works" title="From manual to automatic in *five steps.*" alt>
-      <div className="relative grid gap-6 md:grid-cols-5">
+      <div className="relative grid gap-0 md:grid-cols-5 md:gap-6">
         <svg className="absolute left-0 right-0 top-7 hidden h-1 w-full md:block" preserveAspectRatio="none">
           <line x1="10%" y1="2" x2="90%" y2="2" stroke="var(--primary)" strokeWidth="1" className="animate-dash" opacity="0.45" />
         </svg>
         {steps.map(({ i: I, t, d }, n) => (
-          <div key={t} className="relative text-center">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-background text-primary shadow-[0_0_24px_-6px_var(--primary)]"><I className="h-5 w-5" /></div>
-            <div className="label-mono mt-5 text-primary">Step 0{n + 1}</div>
-            <h3 className="mt-2 font-medium">{t}</h3>
-            <p className="mt-2 text-sm text-muted-foreground">{d}</p>
+          <div key={t} className="relative flex gap-5 pb-8 text-left md:block md:pb-0 md:text-center">
+            {n < steps.length - 1 && <span className="absolute bottom-0 left-7 top-14 w-px bg-gradient-to-b from-primary/50 to-white/5 md:hidden" />}
+            <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-background text-primary shadow-[0_0_24px_-6px_var(--primary)] md:mx-auto"><I className="h-5 w-5" /></div>
+            <div className="pt-1 md:pt-0">
+              <div className="label-mono text-primary md:mt-5">Step 0{n + 1}</div>
+              <h3 className="mt-1.5 font-medium md:mt-2">{t}</h3>
+              <p className="mt-1.5 text-sm text-muted-foreground md:mt-2">{d}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -126,11 +140,11 @@ const industries = [
 export function Industries() {
   return (
     <Section id="industries" eyebrow="Industries" title="Built around the way your *industry works.*">
-      <div data-reveal-stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div data-reveal-stagger className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5">
         {industries.map(({ i: I, t, w }) => (
-          <div key={t} className="glass card-hover rounded-2xl p-5">
+          <div key={t} className="glass card-hover rounded-2xl p-4 sm:p-5">
             <I className="h-5 w-5 text-primary" strokeWidth={1.75} />
-            <h3 className="mt-5 font-medium">{t}</h3>
+            <h3 className="mt-4 text-[15px] font-medium leading-snug sm:mt-5 sm:text-base">{t}</h3>
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{w}</p>
           </div>
         ))}

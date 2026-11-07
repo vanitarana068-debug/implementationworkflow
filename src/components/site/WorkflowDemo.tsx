@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   BarChart3, Bell, Brain, CalendarCheck, CheckCircle2, Clock, Database, Mail, MessageCircle, Play, RotateCcw, UserPlus, Zap,
   type LucideIcon,
@@ -38,6 +38,7 @@ export function WorkflowDemo() {
   const [step, setStep] = useState(-1);
   const [running, setRunning] = useState(false);
   const steps = flows[k];
+  const rail = useRef<HTMLDivElement>(null);
   const done = step >= steps.length - 1 && !running && step >= 0;
 
   useEffect(() => {
@@ -49,6 +50,15 @@ export function WorkflowDemo() {
     const t = setTimeout(() => setStep((s) => s + 1), 900);
     return () => clearTimeout(t);
   }, [running, step, steps.length]);
+
+  // On narrow screens the map scrolls sideways: keep the running step centred in view.
+  useEffect(() => {
+    const el = rail.current;
+    if (!el || el.scrollWidth <= el.clientWidth) return;
+    const node = el.querySelector<HTMLElement>(`[data-step="${Math.max(step, 0)}"]`);
+    if (!node) return;
+    el.scrollTo({ left: node.offsetLeft - (el.clientWidth - node.offsetWidth) / 2, behavior: step < 0 ? "auto" : "smooth" });
+  }, [step, k]);
 
   const reset = () => {
     setRunning(false);
@@ -69,7 +79,7 @@ export function WorkflowDemo() {
         <div className="pointer-events-none absolute inset-x-10 -top-6 bottom-0 bg-[radial-gradient(ellipse_at_50%_30%,rgba(40,130,255,0.22),transparent_65%)] blur-2xl" />
         <div className="glass relative overflow-hidden rounded-2xl">
           {/* toolbar */}
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 bg-black/20 px-5 py-4 md:px-8">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 bg-black/20 px-4 py-4 sm:gap-4 sm:px-5 md:px-8">
             <div>
               <div className="text-sm font-medium">AI workflow map</div>
               <div className="text-xs text-foreground/45">Pick an industry and press play</div>
@@ -92,24 +102,24 @@ export function WorkflowDemo() {
                 </button>
               ))}
             </div>
-            <div className="flex gap-2">
-              <button onClick={play} disabled={running} className="btn-primary !py-2 disabled:opacity-50">
+            <div className="flex w-full gap-2 sm:w-auto">
+              <button onClick={play} disabled={running} className="btn-primary flex-1 !py-2.5 disabled:opacity-50 sm:flex-none sm:!py-2">
                 <Play className="h-3.5 w-3.5" /> Play
               </button>
-              <button onClick={reset} className="btn-ghost !py-2">
+              <button onClick={reset} className="btn-ghost flex-1 !py-2.5 sm:flex-none sm:!py-2">
                 <RotateCcw className="h-3.5 w-3.5" /> Reset
               </button>
             </div>
           </div>
 
           {/* map */}
-          <div className="overflow-x-auto px-5 pb-6 pt-8 [scrollbar-width:none] md:px-8">
+          <div ref={rail} className="relative overflow-x-auto overscroll-x-contain px-5 pb-6 pt-8 [scrollbar-width:none] md:px-8">
             <div className="flex" style={{ minWidth: minW, height: ROW_H }}>
               {steps.map((s, i) => {
                 const st = statusOf(i);
                 return (
                   <div key={s} className="contents">
-                    <div className="flex min-w-[112px] flex-1 flex-col" style={{ paddingTop: off(i) }}>
+                    <div data-step={i} className="flex min-w-[112px] flex-1 flex-col" style={{ paddingTop: off(i) }}>
                       <FlowNode
                         icon={iconFor(s)}
                         title={s}

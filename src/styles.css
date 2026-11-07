@@ -162,7 +162,11 @@
 }
 @utility card-hover {
   transition: border-color .25s, background-color .25s, transform .25s;
-  &:hover { border-color: oklch(1 0 0 / 0.18); background-color: oklch(1 0 0 / 0.025); transform: translateY(-2px); }
+  /* Only real hover devices: on touch screens a tap would leave the card stuck "lifted". */
+  @media (hover: hover) {
+    &:hover { border-color: oklch(1 0 0 / 0.18); background-color: oklch(1 0 0 / 0.025); transform: translateY(-2px); }
+  }
+  &:active { border-color: oklch(1 0 0 / 0.18); }
 }
 
 /* Italic serif accent word inside sans headlines */
@@ -224,3 +228,38 @@ body::after {
 @keyframes grid-flow { from { background-position: 0 0; } to { background-position: 0 52px; } }
 @utility animate-grid-flow { animation: grid-flow 1.8s linear infinite; }
 @media (prefers-reduced-motion: reduce) { .animate-grid-flow { animation: none !important; } }
+
+/* ---------- Phone adaptation ---------- */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
+a, button, [role="slider"] { touch-action: manipulation; }
+
+/* Card grids become swipeable rails on phones (unlayered so it beats the grid utility). */
+@media (max-width: 767px) {
+  .mobile-rail {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin-inline: -1.5rem;
+    padding-inline: 1.5rem;
+    scroll-padding-inline: 1.5rem;
+    gap: 0.875rem;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .mobile-rail::-webkit-scrollbar { display: none; }
+  .mobile-rail > * { flex: 0 0 84%; scroll-snap-align: start; }
+
+  /* Calmer section rhythm on small screens */
+  section.scroll-mt-16 { padding-block: 4.5rem; }
+}
+
+/* Larger, easier-to-grab slider handles on touch screens */
+@media (pointer: coarse) {
+  [role="slider"] { height: 1.5rem !important; width: 1.5rem !important; }
+}
+
+/* Lighter effects on phones: skip the film grain and the cursor-only layers */
+@media (max-width: 767px), (hover: none) {
+  body::after { display: none; }
+}

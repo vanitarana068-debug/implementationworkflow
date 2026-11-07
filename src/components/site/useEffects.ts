@@ -20,6 +20,7 @@ export function usePagePolish() {
     document.querySelectorAll("[data-reveal], [data-reveal-stagger]").forEach((el) => io.observe(el));
 
     const onMove = (ev: PointerEvent) => {
+      if (ev.pointerType !== "mouse") return; // touch screens: no spotlight work
       const card = (ev.target as Element | null)?.closest?.(".glass") as HTMLElement | null;
       if (!card) return;
       const r = card.getBoundingClientRect();

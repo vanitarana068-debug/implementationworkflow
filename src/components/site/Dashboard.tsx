@@ -77,8 +77,8 @@ export function Dashboard() {
         <div className="pointer-events-none absolute -inset-x-10 top-10 bottom-0 rounded-[40px] bg-[radial-gradient(ellipse_at_50%_40%,rgba(40,130,255,0.35),transparent_65%)] blur-2xl" />
 
         {/* the screen */}
-        <div className="relative origin-top rounded-[22px] border border-white/15 bg-[#040a1f] p-1.5 shadow-[0_40px_120px_-30px_rgba(0,0,0,0.9)] transition-transform duration-700 [transform:rotateX(6deg)] hover:[transform:rotateX(0deg)]">
-          <div className="relative overflow-hidden rounded-2xl bg-[radial-gradient(ellipse_70%_50%_at_30%_0%,rgba(40,110,255,0.28),transparent),radial-gradient(ellipse_50%_40%_at_90%_100%,rgba(30,160,255,0.15),transparent)] p-4 md:p-6">
+        <div className="relative origin-top rounded-[22px] border border-white/15 bg-[#040a1f] p-1.5 shadow-[0_40px_120px_-30px_rgba(0,0,0,0.9)] transition-transform duration-700 md:[transform:rotateX(6deg)] md:hover:[transform:rotateX(0deg)]">
+          <div className="relative overflow-hidden rounded-2xl bg-[radial-gradient(ellipse_70%_50%_at_30%_0%,rgba(40,110,255,0.28),transparent),radial-gradient(ellipse_50%_40%_at_90%_100%,rgba(30,160,255,0.15),transparent)] p-3.5 sm:p-4 md:p-6">
             {/* light streak like the hero */}
             <div className="pointer-events-none absolute left-[22%] top-0 h-40 w-32 bg-[repeating-linear-gradient(90deg,rgba(120,200,255,0.25)_0_2px,transparent_2px_7px)] opacity-60 blur-[2px] [mask-image:linear-gradient(to_bottom,black,transparent)]" />
 
@@ -98,7 +98,7 @@ export function Dashboard() {
               <div className="min-w-0 flex-1">
                 {/* top bar */}
                 <div className="flex flex-wrap items-center gap-3">
-                  <BrandLockup markClass="h-5" textClass="text-sm" />
+                  <BrandLockup markClass="h-5" textClass="text-sm tracking-[0.2em]" />
                   <div className="ml-2 hidden flex-1 items-center justify-between rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs text-foreground/40 lg:flex lg:max-w-xs">
                     Search <Search className="h-3.5 w-3.5" />
                   </div>
@@ -115,7 +115,7 @@ export function Dashboard() {
                 {/* heading + KPIs */}
                 <div className="mt-6 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
                   <div>
-                    <div className="text-3xl font-light tracking-tight md:text-4xl">Automation center</div>
+                    <div className="text-[26px] font-light tracking-tight sm:text-3xl md:text-4xl">Automation center</div>
                     <div className="mt-1 text-xs text-foreground/50">Monitor workflows, approvals and AI recommendations in real time</div>
                   </div>
                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -179,11 +179,11 @@ export function Dashboard() {
 
                   <Panel title="Pending approvals">
                     <div className="overflow-x-auto">
-                      <table className="w-full min-w-[320px] text-left text-xs">
+                      <table className="w-full text-left text-xs">
                         <thead className="text-[10px] text-foreground/40">
                           <tr>
                             <th className="pb-2 font-normal">Request</th>
-                            <th className="pb-2 font-normal">Team</th>
+                            <th className="hidden pb-2 font-normal sm:table-cell">Team</th>
                             <th className="pb-2 font-normal">Risk</th>
                             <th className="pb-2 text-right font-normal">Waiting</th>
                           </tr>
@@ -192,7 +192,7 @@ export function Dashboard() {
                           {APPROVALS.map((a) => (
                             <tr key={a.r} className="border-t border-white/5">
                               <td className="py-2">{a.r}</td>
-                              <td className="py-2 text-foreground/55">{a.d}</td>
+                              <td className="hidden py-2 text-foreground/55 sm:table-cell">{a.d}</td>
                               <td className="py-2">
                                 <span className={`rounded-md border px-1.5 py-0.5 text-[10px] ${RISK[a.risk]}`}>{a.risk}</span>
                               </td>
