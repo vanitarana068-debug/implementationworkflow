@@ -159,6 +159,20 @@ export function Hero() {
           >
             Get your free AI audit <ChevronRight className="h-3.5 w-3.5" />
           </a>
+          <a
+            href="https://www.northstarai.online/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="animate-rise group mt-7 inline-flex flex-col items-center gap-0.5 rounded-3xl sm:flex-row sm:gap-3 sm:rounded-full border border-white/20 bg-white/[0.07] px-6 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.25)] backdrop-blur-md transition-colors [animation-delay:420ms] hover:border-primary/60 hover:bg-white/[0.12]"
+          >
+            <span className="text-base font-medium text-foreground/80 md:text-lg">In partnership with</span>
+            <span className="flex items-center gap-2 whitespace-nowrap text-xl font-semibold tracking-tight text-foreground md:text-2xl">
+              <span>
+                NorthStar <em className="accent-serif font-normal">AI</em>
+              </span>
+              <ChevronRight className="h-4 w-4 text-foreground/70 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </a>
 
           <div className="animate-rise mt-auto w-full pt-28 [animation-delay:500ms]">
             <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-foreground/50">Built on tools you already use</div>

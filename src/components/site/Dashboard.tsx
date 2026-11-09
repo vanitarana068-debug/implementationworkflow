@@ -222,7 +222,7 @@ export function Dashboard() {
             </div>
           </div>
         </div>
-        <p className="mt-6 text-center text-xs text-muted-foreground">Illustrative dashboard preview — every Aurevix build is tailored to your workflows.</p>
+        <p className="mt-6 text-center text-xs text-muted-foreground">Illustrative dashboard preview — every Auredux build is tailored to your workflows.</p>
       </div>
     </Section>
   );

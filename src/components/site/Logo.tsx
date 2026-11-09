@@ -1,6 +1,6 @@
 import { BRAND } from "@/lib/site";
 
-// The Aurevix "A" emblem (cut from the brand artwork, transparent background).
+// The Auredux "A" emblem (cut from the brand artwork, transparent background).
 export function Logo({ className = "h-6" }: { className?: string }) {
   return <img src="/aurevix-mark.png" alt="" aria-hidden width={657} height={339} className={`w-auto select-none ${className}`} draggable={false} />;
 }

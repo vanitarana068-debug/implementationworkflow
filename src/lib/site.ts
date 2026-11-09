@@ -1,5 +1,5 @@
 // Change the brand name here.
-export const BRAND = "Aurevix";
+export const BRAND = "Auredux";
 export const TAGLINE = "Intelligence beyond operations.";
 export const DESCRIPTION = "We engineer intelligent systems that automate operations, accelerate growth and transform the way businesses work.";
 export const PILLARS = ["Automate", "Integrate", "Accelerate"];

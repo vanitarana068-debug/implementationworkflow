@@ -1,6 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import { AUDIT_URL, BRAND, DESCRIPTION, NAV, PILLARS, TAGLINE } from "@/lib/site";
 import { Backdrop } from "./Hero";
+import { BrandLockup } from "./Logo";
 
 
 export function FinalCTA() {
@@ -37,7 +38,7 @@ export function Footer() {
       <div className="flex flex-col gap-10 border-t border-white/10 pt-10 md:flex-row md:items-start md:justify-between">
         <div className="max-w-xs">
           <a href="#top" aria-label={BRAND} className="block">
-            <img src="/aurevix-logo.png" alt={BRAND} width={1061} height={543} className="h-auto w-56" />
+            <BrandLockup markClass="h-10" textClass="text-2xl tracking-[0.2em]" />
           </a>
           <p className="mt-4 text-sm text-foreground/85">{TAGLINE}</p>
           <p className="mt-2 text-sm text-muted-foreground">{DESCRIPTION}</p>

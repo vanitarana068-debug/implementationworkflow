@@ -33,46 +33,55 @@ export function Header() {
 
   const solid = scrolled || open;
 
+  // Hide the whole bar once the page is scrolled down; keep it while the phone menu is open.
+  const hidden = scrolled && !open;
+
+  const navPill = (
+    <nav className={`pill hidden items-center rounded-xl px-1.5 py-1.5 lg:flex ${solid ? "!bg-[oklch(0.16_0.04_262/0.8)]" : ""}`}>
+      {NAV.map((n) => (
+        <a
+          key={n.href}
+          href={n.href}
+          className="rounded-md px-2.5 py-1.5 font-mono text-xs uppercase tracking-wide text-foreground/85 transition-colors hover:bg-white/5 hover:text-foreground"
+        >
+          {n.label}
+        </a>
+      ))}
+    </nav>
+  );
+
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 px-3 transition-all duration-500 sm:px-10 ${scrolled ? "pt-3" : "pt-4 sm:pt-8"}`}
+      className={`fixed inset-x-0 top-0 z-50 px-3 pt-4 transition-all duration-500 sm:px-10 sm:pt-8 ${hidden ? "pointer-events-none -translate-y-full opacity-0" : "translate-y-0 opacity-100"}`}
       style={{ marginTop: "env(safe-area-inset-top)" }}
+      aria-hidden={hidden || undefined}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 sm:gap-4">
+      <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-2 sm:gap-4">
+        <div className="flex justify-start">{navPill}</div>
         <div
-          className={`pill flex min-w-0 items-center rounded-xl px-1.5 py-1 transition-shadow duration-500 sm:px-2 sm:py-1.5 ${solid ? "shadow-[0_10px_40px_-10px_rgba(0,0,0,0.7)] !bg-[oklch(0.16_0.04_262/0.8)]" : ""}`}
+          className={`pill flex min-w-0 items-center justify-center rounded-xl px-1.5 py-1 transition-shadow duration-500 sm:px-2 sm:py-1.5 ${solid ? "shadow-[0_10px_40px_-10px_rgba(0,0,0,0.7)] !bg-[oklch(0.16_0.04_262/0.8)]" : ""}`}
         >
-          <a href="#top" aria-label={BRAND} onClick={() => setOpen(false)} className="flex items-center px-1.5 py-0.5 sm:px-2">
+          <a href="#top" aria-label={BRAND} tabIndex={hidden ? -1 : 0} onClick={() => setOpen(false)} className="flex items-center px-1.5 py-0.5 sm:px-2">
             <BrandLockup markClass="h-6 sm:h-8" textClass="text-lg tracking-[0.14em] sm:text-[22px] sm:tracking-[0.2em]" />
           </a>
-          <span className="mx-2 hidden h-6 w-px bg-white/15 lg:block" />
-          <nav className="hidden items-center lg:flex">
-            {NAV.map((n) => (
-              <a
-                key={n.href}
-                href={n.href}
-                className="rounded-md px-2.5 py-1 font-mono text-xs uppercase tracking-wide text-foreground/85 transition-colors hover:bg-white/5 hover:text-foreground"
-              >
-                {n.label}
-              </a>
-            ))}
-          </nav>
         </div>
-        <a
-          href="#calculator"
-          className="pill hidden items-center gap-1 rounded-xl px-3.5 py-2.5 font-mono text-xs uppercase tracking-wide transition-colors hover:bg-white/10 lg:inline-flex"
-        >
-          Get in touch <ChevronRight className="h-3.5 w-3.5" />
-        </a>
-        <button
-          className={`pill grid h-11 w-11 shrink-0 place-items-center rounded-xl lg:hidden ${solid ? "!bg-[oklch(0.16_0.04_262/0.8)]" : ""}`}
-          onClick={() => setOpen(!open)}
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center justify-end gap-2">
+          <a
+            href="#calculator"
+            className="pill hidden items-center gap-1 rounded-xl px-3.5 py-2.5 font-mono text-xs uppercase tracking-wide transition-colors hover:bg-white/10 lg:inline-flex"
+          >
+            Get in touch <ChevronRight className="h-3.5 w-3.5" />
+          </a>
+          <button
+            className={`pill grid h-11 w-11 shrink-0 place-items-center rounded-xl lg:hidden ${solid ? "!bg-[oklch(0.16_0.04_262/0.8)]" : ""}`}
+            onClick={() => setOpen(!open)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Phone menu sheet */}

@@ -13,9 +13,9 @@ import { usePagePolish } from "@/components/site/useEffects";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Aurevix — Intelligence Beyond Operations" },
+      { title: "Auredux — Intelligence Beyond Operations" },
       { name: "description", content: "We engineer intelligent systems that automate operations, accelerate growth and transform the way businesses work." },
-      { property: "og:title", content: "Aurevix — Intelligence Beyond Operations" },
+      { property: "og:title", content: "Auredux — Intelligence Beyond Operations" },
       { property: "og:description", content: "We engineer intelligent systems that automate operations, accelerate growth and transform the way businesses work." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
